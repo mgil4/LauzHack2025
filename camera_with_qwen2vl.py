@@ -174,7 +174,6 @@ def run_camera_monitor():
         out.release()
     cv2.destroyAllWindows()
 
-
 #  MAIN ENTRY POINT
 if __name__ == "__main__":
     run_camera_monitor()
