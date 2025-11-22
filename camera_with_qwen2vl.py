@@ -1,7 +1,8 @@
-import cv2
-import numpy as np
 import os
+import cv2
 import base64
+import numpy as np
+
 from datetime import datetime
 from openai import OpenAI
 
