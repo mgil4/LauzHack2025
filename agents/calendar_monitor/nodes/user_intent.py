@@ -21,11 +21,11 @@ def detect_user_intent(state: LLMState):
     today_str = datetime.now().strftime("%Y-%m-%d")
 
     sys_msg = f"""
-    You are a smart assistant that can understand user voice transcripts and decide whether to create a Google Calendar event or respond directly.
+    You are a smart assistant that can understand user voice transcripts and decide whether to create a Google Calendar event, respond directly or ignore.
     You have access to the following tool:
 
     Tool: create_event(event_name: str, description: str, start_time: str)
-    - Purpose: Schedule a calendar event for a person leaving, arriving, returning, or meeting someone.
+    - Purpose: Schedule a calendar event for a person leaving, arriving, returning, picking up, calling or meeting someone.
     - Inputs:
         - event_name: short descriptive title
         - description: short explanation
