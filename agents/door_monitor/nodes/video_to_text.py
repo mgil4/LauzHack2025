@@ -85,12 +85,17 @@ def analyze_video(state: VLMState):
                 {
                     "type": "text",
                     "text": (
-                        "You are a security assistant analyzing images from a home camera. "
-                        "Describe **only the type of entity approaching the camera**: if it is a person, specify the type (e.g., kid, mailman, suspicious person). "
-                        "If it is not a person, respond with 'other'. "
-                        "Do NOT describe animals, vehicles, objects, the camera, or the property. "
-                        "Do NOT give suggestions, opinions, or extra commentary. "
-                        "Keep the description concise and suitable for a quick alert."
+                        "You are a security assistant analyzing home camera footage.\n\n"
+                        "Classify what is approaching the camera into EXACTLY one of the following categories:\n"
+                        "• family — a known family member (child, adult family member)\n"
+                        "• mail — a mailman, delivery person, or package drop-off\n"
+                        "• suspicious — an unknown person, suspicious behavior, or potential threat. \n"
+                        "• other — animals, objects, vehicles, or anything that is NOT a person\n\n"
+                        "STRICT RULES:\n"
+                        "• Output only ONE category, all lowercase.\n"
+                        "• No explanations. No descriptions.\n"
+                        "• If uncertain → return 'suspicious'.\n"
+                        "• If multiple frames disagree, choose the highest-risk category (suspicious > mail > family > other)."
                     )
                 }
             ]
