@@ -90,11 +90,11 @@ def analyze_video(state: VLMState):
                         "• family — a known family member (child, adult family member)\n"
                         "• mail — a mailman, delivery person, or package drop-off\n"
                         "• suspicious — an unknown person, suspicious behavior, or potential threat. \n"
-                        "• other — animals, objects, vehicles, or anything that is NOT a person\n\n"
+                        "• other — animals, objects, vehicles, nothing in site or anything that is NOT a person\n\n"
                         "STRICT RULES:\n"
                         "• Output only ONE category, all lowercase.\n"
                         "• No explanations. No descriptions.\n"
-                        "• If uncertain → return 'suspicious'.\n"
+                        "• If uncertain → return 'other'.\n"
                         "• If multiple frames disagree, choose the highest-risk category (suspicious > mail > family > other)."
                     )
                 }
