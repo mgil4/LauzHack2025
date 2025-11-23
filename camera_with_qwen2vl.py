@@ -4,8 +4,7 @@ import numpy as np
 
 from datetime import datetime
 
-from video_to_text import analyze_video_with_qwen
-from agent.graph import graph
+from agents.door_monitor.graph import graph
 
 #  CAMERA + MOTION DETECTION + RECORDING
 def run_camera_monitor():
