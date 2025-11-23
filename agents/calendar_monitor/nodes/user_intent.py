@@ -59,6 +59,12 @@ def detect_user_intent(state: LLMState):
     5. Always be concise and clear.
     """
 
+    messages = [
+        sys_msg,
+        {"role": "user", "content": state["transcript"]["text"]}
+    ]
+
     return {
-        "messages": [llm_with_tools.invoke([sys_msg] + [state["input"]])]
+        "messages": llm_with_tools.invoke(messages)
     }
+

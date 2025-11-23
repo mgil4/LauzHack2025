@@ -7,6 +7,8 @@ import base64
 from dotenv import load_dotenv
 import os
 
+from agents.calendar_monitor.state import LLMState
+
 load_dotenv()
 
 def video_to_audio_base64(video_path, audio_format="flac"):
@@ -47,10 +49,6 @@ def video_to_audio_base64(video_path, audio_format="flac"):
         if os.path.exists(audio_path):
             os.remove(audio_path)
 
-# Example usage
-video_file = "downtownabbey.mp4"
-audio_base64 = video_to_audio_base64(video_file)
-
 def query(payload):
 	headers = {
 		"Accept" : "application/json",
@@ -64,9 +62,13 @@ def query(payload):
 	)
 	return response.json()
 
-output = query({
-	"inputs": audio_base64,
-	"parameters": {}
-}) 
 
-print(output)
+def transcript_audio_to_text(state: LLMState):
+    audio_base64 = video_to_audio_base64(state["video_path"])
+    output = query({
+        "inputs": audio_base64,
+        "parameters": {}
+    }) 
+
+    return {"video_path": state["video_path"], "transcript": output}
+
