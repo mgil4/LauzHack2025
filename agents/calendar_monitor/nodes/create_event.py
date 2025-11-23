@@ -98,6 +98,7 @@ def create_event(event_name, description, start_time):
             }
 
         event = service.events().insert(calendarId='primary', body=event).execute()
+        print("Event created!")
     except HttpError as error:
         print(f"An error occurred: {error}")
 

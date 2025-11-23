@@ -97,7 +97,6 @@ def analyze_video(state: VLMState):
                         "STRICT RULES:\n"
                         "• Output only ONE category, all lowercase.\n"
                         "• No explanations. No descriptions.\n"
-                        "• If uncertain → return 'other'.\n"
                         "• If multiple frames disagree, choose 'person' if any frame contains a person, otherwise 'other'."
                     )
                 }

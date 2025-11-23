@@ -28,7 +28,7 @@ def send_telegram_notification(state: VLMState):
         messages = [
             f"Hello! A family member has arrived at the door. "
         ]  
-    elif state['classification'] == 'mailman':
+    elif state["classification"] == 'mailman':
         messages = [
             f"Hi there! The mailman has just delivered a package for you."
         ] 

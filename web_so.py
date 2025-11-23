@@ -7,10 +7,9 @@ import numpy as np
 import sounddevice as sd
 import soundfile as sf
 from flask import Flask, Response, render_template_string
-from agents.door_monitor.nodes.video_to_text import analyze_video
-from agents.door_monitor.nodes.send_notification import send_telegram_notification
-from agents.door_monitor.state import VLMState
 
+from agents.door_monitor.graph import door_graph
+from agents.calendar_monitor.graph import calendar_graph
 # ---------------- CONFIG ---------------- #
 VIDEO_DIR = "recordings"
 MANUAL_DIR = "messages"
@@ -149,10 +148,9 @@ def record_clip(filename, duration=5):
 
 def record_and_analyze_video(video_path):
     record_clip(video_path, duration=5)
-    state: VLMState = {"video_path": video_path, "description": ""}
-    analyzed_state = analyze_video(state)
-    if analyzed_state and analyzed_state["description"] != "other":
-        send_telegram_notification(analyzed_state)
+    
+    door_graph.invoke({"video_path": video_path})
+
     global motion_detected
     motion_detected = False
 
@@ -175,6 +173,8 @@ def manual_audio_record_loop(stop_flag):
         audio_data = np.concatenate(frames, axis=0)
         sf.write(filename, audio_data, AUDIO_RATE)
         print(f"[INFO] Manual audio saved: {filename}")
+
+    calendar_graph.invoke({"video_path": filename})
 
 # ---------------- FLASK ROUTES ---------------- #
 @app.route("/")
@@ -222,4 +222,4 @@ def toggle_manual():
 if __name__ == "__main__":
     t = threading.Thread(target=camera_loop, daemon=True)
     t.start()
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    app.run(host="0.0.0.0", port=5001, debug=False)

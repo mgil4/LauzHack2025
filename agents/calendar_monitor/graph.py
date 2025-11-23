@@ -21,6 +21,6 @@ builder.add_conditional_edges(
 )
 builder.add_edge("tools", END)
 
-graph = builder.compile()
+calendar_graph = builder.compile()
 
 # print(graph.invoke({"video_path": "video/downtownabbey.mp4"}))

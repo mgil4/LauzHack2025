@@ -1,3 +1,4 @@
+from IPython.display import Image, display
 from langgraph.graph import StateGraph, START, END
 
 from agents.door_monitor.state import VLMState
@@ -24,4 +25,4 @@ builder.add_edge("detect_mailman_or_suspicious", "send_telegram_notification")
 builder.add_edge("send_telegram_notification", END)
 
 
-graph = builder.compile()
+door_graph = builder.compile()

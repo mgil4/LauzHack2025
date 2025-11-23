@@ -33,15 +33,34 @@ def detect_family_members(state: VLMState):
     image_extensions = [".jpg", ".jpeg", ".png", ".bmp", ".tiff"]
     family_frames = sorted([p for p in family_dir.iterdir() if p.suffix.lower() in image_extensions])
 
-    family_images_embeddings = [get_embedding(str(image_path)) for image_path in family_frames]
-    frame_images_embeddings = [get_embedding(str(image_path)) for image_path in saved_frames]
+    # Only keep embeddings for frames where faces were detected
+    family_images_embeddings = []
+    for image_path in family_frames:
+        try:
+            emb = get_embedding(str(image_path))
+            family_images_embeddings.append(emb)
+        except Exception:
+            print(f"[WARN] No face found in family image: {image_path}")
 
+    frame_images_embeddings = []
+    for image_path in saved_frames:
+        try:
+            emb = get_embedding(str(image_path))
+            frame_images_embeddings.append(emb)
+        except Exception:
+            print(f"[INFO] No face found in frame: {image_path}")
+
+    if not family_images_embeddings or not frame_images_embeddings:
+        print("[INFO] No faces detected in either family images or video frames.")
+        return {"description": state["description"], "video_path": state['video_path'], "person": state["person"], "family": False}
+
+    # Compare embeddings
     for family_member in family_images_embeddings:
         total_sim = 0
         for frame in frame_images_embeddings:
             total_sim += cosine_similarity(family_member, frame)
 
-        if total_sim/(len(frame_images_embeddings)) > 0.5:
+        if total_sim / len(frame_images_embeddings) > 0.3:
             return {"description": state["description"], "video_path": state['video_path'], "person": state["person"], "family": True}
 
     return {"description": state["description"], "video_path": state['video_path'], "person": state["person"], "family": False}
