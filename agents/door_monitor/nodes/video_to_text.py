@@ -74,7 +74,7 @@ def extract_frames(video_path, output_dir="frames", max_frames=4, padding_ratio=
 
 # CHECK THE RETURN: IT MUST BE A STATE
 def analyze_video(state: VLMState):
-    print(f"Extracting frames from: {state['video_path']}")
+    # print(f"Extracting frames from: {state['video_path']}")
     saved_frames = extract_frames(state['video_path'])
 
     if not saved_frames:
@@ -114,20 +114,18 @@ def analyze_video(state: VLMState):
         }
     ]
 
-    print("Using Qwen2 VL to analyze the video...")
+    print("[INFO] Using Qwen2 VL to analyze the video...")
     try:
         completion = client.chat.completions.create(
             model="Qwen/Qwen2.5-VL-7B-Instruct:hyperbolic",
             messages=messages,
         )
         result = completion.choices[0].message.content
-        print("SECURITY FOOTAGE SUMMARY:\n",result,"\n")
         
         if result == 'person':
             person = True
         else:
             person = False
-
         return {"description": result, "video_path": state['video_path'], "person": person}
 
     except Exception as e:

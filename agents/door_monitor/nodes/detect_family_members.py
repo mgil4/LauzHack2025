@@ -23,7 +23,7 @@ def cosine_similarity(a, b):
     return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
 
 def detect_family_members(state: VLMState):
-    print(f"Extracting frames from: {state['video_path']}")
+    # print(f"Extracting frames from: {state['video_path']}")
     saved_frames = extract_frames(state['video_path'])
 
     if not saved_frames:
@@ -54,13 +54,15 @@ def detect_family_members(state: VLMState):
         print("[INFO] No faces detected in either family images or video frames.")
         return {"description": state["description"], "video_path": state['video_path'], "person": state["person"], "family": False}
 
-    # Compare embeddings
+    print("[INFO] Evaluating familiarity of the faces")
     for family_member in family_images_embeddings:
         total_sim = 0
         for frame in frame_images_embeddings:
             total_sim += cosine_similarity(family_member, frame)
 
         if total_sim / len(frame_images_embeddings) > 0.3:
+            print("[INFO] Person classified as familiar")
             return {"description": state["description"], "video_path": state['video_path'], "person": state["person"], "family": True}
 
+    print("[INFO] Person classified as non-familiar")
     return {"description": state["description"], "video_path": state['video_path'], "person": state["person"], "family": False}

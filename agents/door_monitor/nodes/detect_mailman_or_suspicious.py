@@ -114,14 +114,14 @@ def analyze_person(state: VLMState):
         }
     ]
 
-    print("Using Qwen2 VL to analyze the video...")
+    print("[INFO] Classifying between mailman and suspicious")
     try:
         completion = client.chat.completions.create(
             model="Qwen/Qwen2.5-VL-7B-Instruct:hyperbolic",
             messages=messages,
         )
         result = completion.choices[0].message.content
-        print("SECURITY FOOTAGE SUMMARY:\n",result,"\n")
+        print("[INFO] Person classified as:",result,"\n")
         
         return {"description": state["description"], "video_path": state['video_path'], "person": state["person"], "family": state["family"], "classification": result}
 

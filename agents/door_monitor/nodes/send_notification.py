@@ -24,21 +24,20 @@ def send_telegram_notification(state: VLMState):
         text = '\n'.join(messages)
         await send_message(text, chat_id)
 
-    if state["family"] is True:
+    if state.get("family") is True:
         messages = [
-            f"Hello! A family member has arrived at the door. "
+            "Hello! A family member has arrived at the door."
         ]  
-    elif state["classification"] == 'mailman':
+    elif state.get("classification") == 'mailman':
         messages = [
-            f"Hi there! The mailman has just delivered a package for you."
+            "Hi there! The mailman has just delivered a package for you."
         ] 
-    elif state['classification'] == 'suspicious':
+    elif state.get("classification") == 'suspicious':
         messages = [
-            f"Alert! Suspicious activity detected at the door. You might want to review the videos and call the authorities. "
+            "Alert! Suspicious activity detected at the door. You might want to review the videos and call the authorities."
         ]
-
 
     if messages:
         asyncio.run(run_bot(messages, CHAT_ID))
-    
+        print("[INFO] Notification sent through telegram.")
     return state

@@ -1,4 +1,6 @@
-# LauzHack2025
+# Sneak Peek - LauzHack 2025
+![Alt text](static/image.jpeg)
+
 This project leverages **state-of-the-art visual language models** (QWEN2-VL) and **agentic frameworks** (LangGraph) to monitor a home in real time. The system can:
 
 - Detect people approaching the door and classify them as **residents**, **routine visitors** (e.g., mail carriers), or **suspicious activities**.  
