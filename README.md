@@ -11,7 +11,8 @@ This project leverages **state-of-the-art visual language models** (QWEN2-VL) an
   VIDEO DEMOOOOOOOOOOOOOO
 
 ## Basic set-up?
-
+- have ffmpeg installed on your system
+- credentials.json (and then token.json) from google cloud for google calendar
 ## Real-time relevant events notification
 
 ## Creation of events using voice statements
