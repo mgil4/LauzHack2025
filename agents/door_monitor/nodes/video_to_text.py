@@ -3,13 +3,18 @@ import cv2
 import base64
 
 from openai import OpenAI
+from dotenv import load_dotenv
+import os
+
+
 
 from agents.door_monitor.state import VLMState
 
+load_dotenv() 
 
 client = OpenAI(
     base_url="https://router.huggingface.co/v1",
-    api_key="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",  
+    api_key=os.getenv("HF_TOKEN"),  
 )
 
 # Base64 encode an image
@@ -77,7 +82,7 @@ def analyze_video(state: VLMState):
         return None
 
     frame_images = [load_image_as_base64(path) for path in saved_frames]
-
+    # IS A PERSON APPROACHING THE DOOR/CLOSE TO THE CAMERA
     messages = [
         {
             "role": "system",
@@ -87,15 +92,13 @@ def analyze_video(state: VLMState):
                     "text": (
                         "You are a security assistant analyzing home camera footage.\n\n"
                         "Classify what is approaching the camera into EXACTLY one of the following categories:\n"
-                        "• family — a known family member (child, adult family member)\n"
-                        "• mail — a mailman, delivery person, or package drop-off\n"
-                        "• suspicious — an unknown person, suspicious behavior, or potential threat. \n"
-                        "• other — animals, objects, vehicles, nothing in site or anything that is NOT a person\n\n"
+                        "• person — if a person is approaching the door or very close to the camera\n"
+                        "• other — animals, objects, vehicles, nothing in sight, or anything that is NOT a person\n\n"
                         "STRICT RULES:\n"
                         "• Output only ONE category, all lowercase.\n"
                         "• No explanations. No descriptions.\n"
                         "• If uncertain → return 'other'.\n"
-                        "• If multiple frames disagree, choose the highest-risk category (suspicious > mail > family > other)."
+                        "• If multiple frames disagree, choose 'person' if any frame contains a person, otherwise 'other'."
                     )
                 }
             ]
@@ -120,7 +123,13 @@ def analyze_video(state: VLMState):
         )
         result = completion.choices[0].message.content
         print("SECURITY FOOTAGE SUMMARY:\n",result,"\n")
-        return {"description": result, "video_path": state['video_path']}
+        
+        if result == 'person':
+            person = True
+        else:
+            person = False
+
+        return {"description": result, "video_path": state['video_path'], "person": person}
 
     except Exception as e:
         print("[ERROR]", e)

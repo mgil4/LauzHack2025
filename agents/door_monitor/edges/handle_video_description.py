@@ -5,7 +5,7 @@ from agents.door_monitor.state import VLMState
 
 
 def classify_video(state: VLMState):
-    if state['description'] != 'other':
-        return 'send_telegram_notification'
+    if state['person'] is True:
+        return "detect_family_members"
     else:
         return END
