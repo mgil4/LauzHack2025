@@ -56,7 +56,7 @@ def query(payload):
 		"Content-Type": "application/json"
 	}
 	response = requests.post(
-		"https://i4d7elpjedi309k3.us-east-1.aws.endpoints.huggingface.cloud",
+        os.getenv("WHISPER_ENDPOINT"),
 		headers=headers,
 		json=payload
 	)

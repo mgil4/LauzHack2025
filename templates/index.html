@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Doorbell</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="doorbell-container">
+        <div class="header">
+            <div class="camera-lens"></div>
+            <h1>Front Door</h1>
+        </div>
+        
+        <div class="video-wrapper">
+            <img src="{{ url_for('video_feed') }}" class="video-feed" alt="Live Video Feed">
+            <div class="live-indicator">LIVE</div>
+        </div>
+
+        <div class="controls">
+            <form action="/toggle_manual" method="POST">
+                <button type="submit" class="ring-button {% if recording %}recording{% endif %}">
+                    <div class="ring-light"></div>
+                    <span class="icon">
+                        {% if recording %}
+                        ⬛
+                        {% else %}
+                        ●
+                        {% endif %}
+                    </span>
+                </button>
+            </form>
+            <p class="status-text">
+                {% if recording %}
+                Recording Message...
+                {% else %}
+                Push to Leave Message
+                {% endif %}
+            </p>
+        </div>
+    </div>
+</body>
+</html>

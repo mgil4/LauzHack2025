@@ -15,20 +15,34 @@ Our MVP simulates the doorbell of a house,...
   VIDEO DEMOOOOOOOOOOOOOO
   - web UI + telegram en la misma pantalla o cambiar de pantalla? (para no tener que lidiar con la web en media pantalla)
 
+The features of our system are the following:
+## 1. Real-time notification based on user preferences
 
-## Real-time relevant events notification
-- our system continously captures the frontdoor of your house, and starts recording (X) seconds clips when some movement is detected.
-- a VLM (Qwen2-VL) classifies if the recording is relevant based on your criteria (e.g im only interested when the mailman leaves a package on my frontdoor)
-- we also let you upload pictures of people so the model can easily identify them, e.g i want to know everytime my 12 year old child enters or leaves home
-- once a recording is classified as relevant, we will notify you via telegram, and allow you to access the recorded clip
+### 1.1 User-defined preferences 
+Our system continuously monitors your house entrance, starting to record short video clips of (X) seconds whenever it detects movement. The VLM model, named Qwen2-VL, assesses each recording's relevance according to your defined criteria; for instance, you might be interested only in receiving notifications when the mailman leaves a package at the front door.
+
+### 1.2 Real-time Telegram notification
+Once a recording is deemed relevant by the model, we will promptly notify you via Telegram and enable access to view the recorded clip.
+
+### 1.3 Face recognition of commonly seen people 
+
+You can also provide photographs of specific individuals that our system should recognize easily, and will be tagged as "family" members. An example use for that is wanting to receive notifications every time your 12-year-old child enters or exits your home. 
+
+
+
 - (in case of suspicious activity we will call you?)
 
 ![Alt text](static/motion_detection.png)
 
 
 
-## Creation of events using voice statements
-- imagine the mailman leaves a package at your front door, or your daughter leaves home and they want you to know
+## 2. Creation of events using voice statements
+
+### 2.1 Audio message recording
+Picture the mailman leaving a package at your front door or your daughter departing; our system will capture these moments by letting them record audio messages. 
+
+### 2.2 Creation of Google Calendar events
+The system has the capability to automatically generate Google Events and Telegram notifications based on these messages, ensuring you have real-time access to all pertinent information related to your home through frequently used apps like Google Calendar and Telegram.
 
 ![Alt text](static/event_creation.png)
 
@@ -59,5 +73,6 @@ WHISPER_ENDPOINT = <URL>
 - Automatic speaker recognition for the creation of events
 ### Authors
 - Maria Gil
-- Lola Monroy
-- Iván Hernández
+- Lola Monroy Mir
+- Iván Hernández Gómez
+(link to their linkedins?)
