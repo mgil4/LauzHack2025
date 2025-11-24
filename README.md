@@ -1,6 +1,6 @@
 # Sneak Peek - LauzHack 2025
 
-![Alt text](static/logo.jpeg)
+![Alt text](docs/logo.jpeg)
 
 This project leverages **state-of-the-art visual language models** (QWEN2-VL) and **agentic frameworks** (LangGraph) to monitor a home in real time. The system can:
 
@@ -12,7 +12,8 @@ This project leverages **state-of-the-art visual language models** (QWEN2-VL) an
 
 Our MVP simulates the doorbell of a house,...
 
-  VIDEO DEMOOOOOOOOOOOOOO
+![Demo](docs/family_demo.gif)
+
   - web UI + telegram en la misma pantalla o cambiar de pantalla? (para no tener que lidiar con la web en media pantalla)
 
 The features of our system are the following:
@@ -32,7 +33,7 @@ You can also provide photographs of specific individuals that our system should 
 
 - (in case of suspicious activity we will call you?)
 
-![Alt text](static/motion_detection.png)
+![Alt text](docs/motion_detection.png)
 
 
 
@@ -44,7 +45,7 @@ Picture the mailman leaving a package at your front door or your daughter depart
 ### 2.2 Creation of Google Calendar events
 The system has the capability to automatically generate Google Events and Telegram notifications based on these messages, ensuring you have real-time access to all pertinent information related to your home through frequently used apps like Google Calendar and Telegram.
 
-![Alt text](static/event_creation.png)
+![Alt text](docs/event_creation.png)
 
 ## Set-up
 
